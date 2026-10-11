@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Good Luck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff5f8; --card:#ffffff; --ink:#5a2a3c; --soft:#b86b86; --accent:#f48fb1; --accent-2:#fbd3e0;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#2a1620;--card:#35202b;--ink:#ffe3ec;--soft:#e8a2bb;--accent:#f48fb1;--accent-2:#4a2b3a;}
+}
+:root[data-theme="dark"]{--bg:#2a1620;--card:#35202b;--ink:#ffe3ec;--soft:#e8a2bb;--accent:#f48fb1;--accent-2:#4a2b3a;}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100%;background:var(--bg);color:var(--ink);
+  font-family:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;font-weight:300;
+  display:flex;align-items:center;justify-content:center;padding:24px;
+}
+main{width:100%;max-width:440px;text-align:center}
+.card{
+  background:var(--card);border-radius:28px;padding:48px 28px 36px;
+  box-shadow:0 10px 40px rgba(244,143,177,.22);
+}
+.clover{font-size:34px;line-height:1;margin-bottom:18px}
+.for{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);min-height:18px;margin:0 0 10px}
+h1{
+  font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:500;
+  font-size:clamp(44px,13vw,64px);line-height:1.05;margin:0 0 20px;color:var(--accent);
+}
+.line{width:48px;height:2px;background:var(--accent-2);border:0;margin:0 auto 22px;border-radius:2px}
+#note{font-size:17px;line-height:1.6;min-height:84px;margin:0 0 26px;color:var(--ink);transition:opacity .25s}
+button{
+  font:inherit;font-weight:400;font-size:15px;cursor:pointer;
+  background:var(--accent);color:#fff;border:0;border-radius:999px;padding:13px 28px;
+  transition:transform .15s,box-shadow .15s;box-shadow:0 6px 18px rgba(244,143,177,.4);
+}
+button:hover{transform:translateY(-2px)}
+button:active{transform:scale(.97)}
+.name{margin-top:26px}
+.name input{
+  font:inherit;font-size:14px;text-align:center;color:var(--ink);background:transparent;
+  border:0;border-bottom:1px solid var(--accent-2);padding:6px 4px;width:70%;outline:none;
+}
+.name input:focus{border-bottom-color:var(--accent)}
+.name input::placeholder{color:var(--soft);opacity:.7}
+.petal{position:fixed;top:-20px;width:10px;height:14px;background:var(--accent);opacity:.5;border-radius:80% 0 80% 0;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg);opacity:0}}
+@media (prefers-reduced-motion: reduce){.petal{display:none}}
+</style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <div class="clover">🍀</div>
+    <p class="for" id="for"></p>
+    <h1>Good luck Madam!</h1>
+    <hr class="line">
+    <p id="note">You've got this. Take a breath and go be great.</p>
+    <button id="btn" type="button">Another lucky note</button>
+    
+    </div>
+  </div>
+</main>
+<script>
+const notes=[
+  "Kaya mo na a les go.",
+  "Guro halong bwass",
+  "Sending prayers and Goodluck a",
+  "Kung ano mn score bwass, good job gyapon",
+  "Kalmahi lng ha, ",
+
+];
+let i=0;
+const note=document.getElementById('note'),btn=document.getElementById('btn'),
+      nameIn=document.getElementById('nameIn'),forEl=document.getElementById('for');
+function petals(n){
+  for(let k=0;k<n;k++){
+    const p=document.createElement('div');p.className='petal';
+    p.style.left=Math.random()*100+'vw';
+    p.style.animationDuration=(3+Math.random()*3)+'s';
+    p.style.transform='rotate('+Math.random()*180+'deg)';
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),6500);
+  }
+}
+btn.addEventListener('click',()=>{
+  i=(i+1)%notes.length;
+  note.style.opacity=0;
+  setTimeout(()=>{note.textContent=notes[i];note.style.opacity=1},200);
+  petals(14);
+});
+nameIn.addEventListener('input',()=>{
+  const v=nameIn.value.trim();
+  forEl.textContent=v?'for '+v:'';
+});
+petals(10);
+</script>
+</body>
+</html>
